@@ -1,0 +1,32 @@
+@charset "EUC-KR";
+
+
+div{
+	height:1000px;
+}
+#s_left{
+	width:25%;
+	float:left;	
+}
+#s_right{
+	widht:25%;
+	float:left;
+}
+#l_contents{
+	width:50%;
+	float:left;
+	margin-top:150px;
+}
+
+#left{
+	width:50%;
+	float:left;
+}
+#right{
+	width:50%;
+	float:right;
+}
+
+#img{
+	margin-top:150px;
+}
