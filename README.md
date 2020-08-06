@@ -1,2 +1,2 @@
 # SmartFarm
-Team Project with Bit Senter
+Team Project with Bit Center
