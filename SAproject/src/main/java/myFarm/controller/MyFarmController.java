@@ -23,7 +23,9 @@ public class MyFarmController {
 		System.out.println("농장 메인 컨트롤러 실행됨");
 		
 		FarmService fs = new FarmService();
-		fs.findMyFarm("kim");
+		/* fs.findMyFarm("kim"); */
+		
+		model.addAttribute("farm",  fs.findMyFarm("kim"));
 		
 		return "myFarm/FarmPageMain";
 	}

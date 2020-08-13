@@ -8,8 +8,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Service;
+
 import myFarm.entity.Farm;
 
+@Service
 public class FarmService {
 
 	EntityManagerFactory emf;
@@ -24,27 +27,26 @@ public class FarmService {
 	}
 
 	// 농장 정보 찾기
-	public void findMyFarm(String name) {
+	public Farm findMyFarm(String name) {
 
+		Farm farm = null;
+		
 		try {
 			tx.begin();
-			List<Farm> farm = null;
 
 			String jpql = "SELECT m from Farm m where m.farmName=:name";
 			
 			/* farm = em.createQuery(jpql, Farm.class).getResultList(); */
 			
 			TypedQuery<Farm> query = em.createQuery(jpql, Farm.class).setParameter("name", name);
-			farm = query.getResultList();
+			farm = query.getSingleResult();
 
 			System.out.println(farm);
-			
+
 			// 결과 출력
-			for (Farm act : farm) {
-				System.out.println("-------------------------------------");
-				System.out.println(act.getFarmName() + " " + act.getBusinessNum());
-				System.out.println("-------------------------------------");
-			}
+			System.out.println("-------------------------------------");
+			System.out.println(farm.getFarmName() + " " + farm.getBusinessNum());
+			System.out.println("-------------------------------------");
 			
 			tx.commit();
 		} catch (Exception e) {
@@ -52,7 +54,7 @@ public class FarmService {
 		} finally {
 			em.close();
 		}
-		emf.close();
-
+		
+		return farm;
 	}
 }
