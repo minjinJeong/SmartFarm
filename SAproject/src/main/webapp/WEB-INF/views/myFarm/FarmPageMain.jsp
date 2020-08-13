@@ -12,7 +12,7 @@
 <div class="container" align="center">
 
 	<div class="header">
-		<h1>제목</h1>
+		<h1> kim 님의 페이지 </h1>
 	</div>
 	
 	<div class="content">

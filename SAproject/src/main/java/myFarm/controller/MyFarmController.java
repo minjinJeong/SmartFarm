@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import myFarm.service.FarmService;
+
 /*
  * auction 관련 파일을 실행시키기 위한 컨트롤러
  * @Controller는 컨트롤러라는 뜻이고,
@@ -19,6 +21,10 @@ public class MyFarmController {
 	@RequestMapping("/FarmPageMain")
 	public String intro(Model model) {
 		System.out.println("농장 메인 컨트롤러 실행됨");
+		
+		FarmService fs = new FarmService();
+		fs.findMyFarm("kim");
+		
 		return "myFarm/FarmPageMain";
 	}
 	
