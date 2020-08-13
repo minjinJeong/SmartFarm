@@ -40,13 +40,6 @@ public class FarmService {
 			
 			TypedQuery<Farm> query = em.createQuery(jpql, Farm.class).setParameter("name", name);
 			farm = query.getSingleResult();
-
-			System.out.println(farm);
-
-			// 결과 출력
-			System.out.println("-------------------------------------");
-			System.out.println(farm.getFarmName() + " " + farm.getBusinessNum());
-			System.out.println("-------------------------------------");
 			
 			tx.commit();
 		} catch (Exception e) {

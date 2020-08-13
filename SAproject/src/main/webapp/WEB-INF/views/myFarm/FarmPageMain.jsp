@@ -12,7 +12,7 @@
 <div class="container" align="center">
 
 	<div class="header">
-		<h1> ${farm.getFarmName} 님의 페이지 </h1>
+		<h1> ${farm.getFarmName()} 님의 페이지 </h1>
 	</div>
 	
 	<div class="content">
@@ -73,9 +73,9 @@
 	  
 	<div class="sidebar">
 		<br>
-		<p>${farm.getFarmName} 님의 페이지</p><br>
-		<p>별점평균 : ${farm.getAvgStar}</p><br>
-		<p>랭킹 : ${farm.getRatings}</p><br>
+		<p>${farm.getFarmName()} 님의 페이지</p><br>
+		<p>별점평균 : ${farm.getAvgStar()}</p><br>
+		<p>랭킹 : ${farm.getRatings()}</p><br>
 		<a href="FarmPageModify">페이지 수정하기</a>
 	</div>
   
