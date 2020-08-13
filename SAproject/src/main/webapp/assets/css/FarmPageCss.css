@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+/* main page */
+.container {width:1000px; margin:20px auto; border: 1px solid gray; }
+.header {height:100px; background-color:#FFFFFF; color:#000000; border: 1px solid gray; }
+.content {width:845px; float:left; border: 1px solid gray; } 
+.sidebar {width:150px; background-color:#FFFFFF; float:right; border: 1px solid gray; }
+
+/* others */
+#s_left{
+	width:25%;
+	height:700px;
+	float:left;
+}
+
+#contents{
+	width:50%;
+	height:700px;
+	float:left;
+	margin-top:30px;
+}
+
+#s_right{
+	widht:25%;
+	height:700px;
+	float:left;
+}

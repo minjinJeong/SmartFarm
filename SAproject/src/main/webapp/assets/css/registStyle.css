@@ -1,0 +1,23 @@
+@charset "EUC-KR";
+
+div {
+	width: 60%;
+	text-align: center;
+	margin: 0px auto;
+}
+
+#logo {
+	margin-top:150px;
+}
+
+#btn {
+	margin: 10px;
+}
+
+table {
+	border: 3px solid DarkSeaGreen;
+}
+
+td {
+	border: 1px solid DarkSeaGreen;
+}

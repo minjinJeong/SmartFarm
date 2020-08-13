@@ -1,0 +1,15 @@
+@charset "EUC-KR";
+
+a {
+	float:left;
+	border: 1px solid #bcbcbc;
+	padding: 10px;
+	}
+	
+
+	
+img{
+	align:center;
+	padding-top:60px;
+	position:static;
+}
