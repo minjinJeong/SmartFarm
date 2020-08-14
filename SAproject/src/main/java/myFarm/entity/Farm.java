@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name="MyPage")
 public class Farm implements Serializable {
 	@Id
+	@GeneratedValue
 	private String farmName;
 	private String businessNum;
 	private String photo;

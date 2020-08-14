@@ -1,5 +1,6 @@
 package myFarm.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,15 +18,19 @@ import myFarm.service.FarmService;
 
 @Controller
 public class MyFarmController {
+	
+	@Autowired
+	FarmService fs;
+	
 	// 농장 메인 화면
 	@RequestMapping("/FarmPageMain")
 	public String intro(Model model) {
 		System.out.println("농장 메인 컨트롤러 실행됨");
 		
-		FarmService fs = new FarmService();
+		fs = new FarmService();
 		/* fs.findMyFarm("kim"); */
 		
-		model.addAttribute("farm",  fs.findMyFarm("kim"));
+		model.addAttribute("farm",  fs.findByfarm("kim"));
 		
 		return "myFarm/FarmPageMain";
 	}
