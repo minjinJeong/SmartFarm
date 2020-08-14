@@ -19,7 +19,7 @@ import myFarm.service.FarmService;
 @Controller
 public class MyFarmController {
 	
-	@Autowired
+	@Autowired(required=true)
 	FarmService fs;
 	
 	// 농장 메인 화면
@@ -27,9 +27,9 @@ public class MyFarmController {
 	public String intro(Model model) {
 		System.out.println("농장 메인 컨트롤러 실행됨");
 		
-		fs = new FarmService();
-		/* fs.findMyFarm("kim"); */
-		
+		// fs = new FarmService();
+		// fs.findMyFarm("kim");
+		 
 		model.addAttribute("farm",  fs.findByfarm("kim"));
 		
 		return "myFarm/FarmPageMain";
