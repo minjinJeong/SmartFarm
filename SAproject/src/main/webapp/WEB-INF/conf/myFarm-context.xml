@@ -20,8 +20,7 @@
 	<context:component-scan
 		base-package="myFarm.controller" use-default-filters="false">
 		<!-- controller annotation만 등록 -->
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
 	<!-- JpaRepository를 Bean으로 자동 등록 -->
