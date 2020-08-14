@@ -19,6 +19,7 @@ import myFarm.service.FarmService;
 @Controller
 public class MyFarmController {
 	
+	@Autowired
 	FarmService fs;
 	
 	// 농장 메인 화면

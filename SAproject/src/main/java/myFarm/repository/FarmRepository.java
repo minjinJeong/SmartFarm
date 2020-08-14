@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import myFarm.entity.Farm;
 
 @Repository
-@Transactional(readOnly = true)
+@Transactional
 public interface FarmRepository extends JpaRepository<Farm, Long> {
 
 	/*
