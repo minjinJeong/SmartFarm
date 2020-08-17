@@ -9,6 +9,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@Table(name="MyPage")
 public class Farm implements Serializable {
 
 	@Id

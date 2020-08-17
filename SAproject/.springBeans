@@ -10,9 +10,12 @@
 		<config>src/main/webapp/WEB-INF/begin-context.xml</config>
 		<config>src/main/webapp/WEB-INF/conf/common-context.xml</config>
 		<config>src/main/webapp/WEB-INF/conf/account-context.xml</config>
+		<config>src/main/webapp/WEB-INF/conf/jpa-context.xml</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/conf/root-context.xml</config>
+		<config>src/main/webapp/WEB-INF/conf/myFarm-context.xml</config>
+		<config>src/main/webapp/WEB-INF/conf/QnA-context.xml</config>
+		<config>src/main/webapp/WEB-INF/conf/auction-context.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

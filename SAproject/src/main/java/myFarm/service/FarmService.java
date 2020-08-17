@@ -23,47 +23,13 @@ public class FarmService {
 	@Autowired
 	private FarmRepository fr;
 
-	/*
-	 * EntityManagerFactory emf; EntityManager em; EntityTransaction tx;
-	 */
-
-	// 생성자: 초기 설정
-	public FarmService() {
-
-		/*
-		 * emf = Persistence.createEntityManagerFactory("SAproject"); em =
-		 * emf.createEntityManager(); tx = em.getTransaction();
-		 */
-
-	}
-
 	// 농장 정보 찾기 1
 	public Farm findByfarm(String name) {
-		System.out.println();
 		
-		fr.count();
-		// MyPage farm = fr.findByfarmName(name);
-		return new Farm();
+		Farm farm = fr.findByfarmName(name);
+		// System.out.println("farm 호출 결과::"+farm.getFarmName());
+		
+		return farm;
 	}
-
-	/*
-	 * // 농장 정보 찾기 2 public Farm findMyFarm(String name) {
-	 * 
-	 * Farm farm = null;
-	 * 
-	 * try { tx.begin();
-	 * 
-	 * String jpql = "SELECT m from Farm m where m.farmName=:name";
-	 * 
-	 * // farm = em.createQuery(jpql, Farm.class).getResultList();
-	 * 
-	 * TypedQuery<Farm> query = em.createQuery(jpql,
-	 * Farm.class).setParameter("name", name); farm = query.getSingleResult();
-	 * 
-	 * tx.commit(); } catch (Exception e) { e.printStackTrace(); } finally {
-	 * em.close(); }
-	 * 
-	 * return farm; }
-	 */
 
 }

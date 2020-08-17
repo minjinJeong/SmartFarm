@@ -38,6 +38,7 @@
 			/WEB-INF/conf/auction-context.xml
 			/WEB-INF/conf/myFarm-context.xml
 			/WEB-INF/conf/QnA-context.xml
+			/WEB-INF/conf/jpa-context.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

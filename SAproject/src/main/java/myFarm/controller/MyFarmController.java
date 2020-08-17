@@ -25,11 +25,9 @@ public class MyFarmController {
 	// 농장 메인 화면
 	@RequestMapping("/FarmPageMain")
 	public String intro(Model model) {
+		
 		System.out.println("농장 메인 컨트롤러 실행됨");
 		
-		// fs = new FarmService();
-		// fs.findMyFarm("kim");
-		 
 		model.addAttribute("farm",  fs.findByfarm("kim"));
 		
 		return "myFarm/FarmPageMain";

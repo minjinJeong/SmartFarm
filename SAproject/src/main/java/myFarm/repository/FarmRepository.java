@@ -18,6 +18,6 @@ public interface FarmRepository extends JpaRepository<Farm, String> {
 	 */
 	
 	// farmName으로 DB 검색
-	public Farm findByFarmName(String name);
+	public Farm findByfarmName(String name);
 
 }

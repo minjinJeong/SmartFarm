@@ -14,9 +14,9 @@
 	<!--  use-default-filters="false"의 의미: -->
 	<!-- controller, service, repository, component 등  annotation은 spring bean으로 등록하지 않는다. -->
 	
-	<context:component-scan base-package="auction.controller" use-default-filters="false">
+	<context:component-scan base-package="auction.controller">
 		<!-- controller annotation만 등록 -->
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> -->
 	</context:component-scan>
 
 </beans:beans>
