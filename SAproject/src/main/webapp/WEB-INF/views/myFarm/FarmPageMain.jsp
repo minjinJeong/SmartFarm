@@ -12,12 +12,13 @@
 <div class="container" align="center">
 
 	<div class="header">
+		<!-- ${farm.getFarmName()}은 농가명으로, 나중에 로그인/회원가입 기능이 완료되면 세션에 ID 를 저장해 출력한다. -->
 		<h1> ${farm.getFarmName()} 님의 페이지 </h1>
 	</div>
 	
 	<div class="content">
-		<img src="assets/images/Tulips.jpg" width="400">
-		<p>코멘트</p>
+		<img src="${farm.getPhoto()}" width="400">
+		<p>${farm.getComment()}</p>
 		
 		<table border="1" width="800">
 			<tr>
@@ -76,7 +77,8 @@
 		<p>${farm.getFarmName()} 님의 페이지</p><br>
 		<p>별점평균 : ${farm.getAvgStar()}</p><br>
 		<p>랭킹 : ${farm.getRatings()}</p><br>
-		<a href="FarmPageModify">페이지 수정하기</a>
+		<a href="FarmPageModify">페이지 수정하기</a><br/>
+		<a href="FarmPageWrite">사진 입력하기</a>
 	</div>
   
 </div> 

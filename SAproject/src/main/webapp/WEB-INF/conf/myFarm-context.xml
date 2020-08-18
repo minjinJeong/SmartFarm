@@ -25,6 +25,5 @@
 
 	<!-- service 등록 -->
 	<beans:bean id="FarmService" class="myFarm.service.FarmService" />
-
-
+    
 </beans:beans>

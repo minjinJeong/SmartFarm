@@ -17,5 +17,11 @@
 		<property name="prefix" value="/WEB-INF/views/" /><!-- view 문서의 확장자를 지정 -->
 		<!-- setPrefix()와 setSuffix() 함수 호출 -->
 	</bean>
+	
+	<!-- MultipartResolver 설정 --> 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		<property name="maxUploadSize" value="100000000" />
+		<property name="maxInMemorySize" value="100000000" />
+	</bean> 
 
 </beans>

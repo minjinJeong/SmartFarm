@@ -13,7 +13,6 @@ import javax.persistence.*;
 public class Farm implements Serializable {
 
 	@Id
-	@GeneratedValue
 	private String farmName;
 	private String businessNum;
 	private String photo;
@@ -24,6 +23,16 @@ public class Farm implements Serializable {
 	
 	public Farm() {
 		super();
+	}
+	
+	public Farm(String farmName, String businessNum) {
+		this.farmName = farmName;
+		this.businessNum = businessNum;
+		photo = "0";
+		comment = "0";
+		sales = "0";
+		ratings = "0";
+		avgStar = "0";
 	}
 	
 	public String getFarmName() {

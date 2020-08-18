@@ -17,7 +17,7 @@ public interface FarmRepository extends JpaRepository<Farm, String> {
 	 * 
 	 */
 	
-	// farmName으로 DB 검색
-	public Farm findByfarmName(String name);
+	// businessNum으로 DB 검색 :: findBy필드이름();
+	public Farm findBybusinessNum(String num);
 
 }
