@@ -25,5 +25,6 @@
 
 	<!-- service 등록 -->
 	<beans:bean id="FarmService" class="myFarm.service.FarmService" />
+	<beans:bean id="FileService" class="myFarm.service.FileService" />
     
 </beans:beans>

@@ -1,10 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
-<link href="assets/css/FarmPageCss.css" rel="stylesheet" type="text/css">
+<!-- ?after => 바뀐 스타일 시트 적용 안돼서 추가 -->
+<link href="assets/css/FarmPageCss.css?after" rel="stylesheet" type="text/css">
 <meta charset="EUC-KR">
+
 <title>농부 페이지</title>
 </head>
 <body>
@@ -17,9 +20,25 @@
 	</div>
 	
 	<div class="content">
-		<img src="${farm.getPhoto()}" width="400">
-		<p>${farm.getComment()}</p>
-		
+		<c:set var="start" value="0" />
+		<c:set var="end" value="2" />
+		<c:set var="len" value="${fn:length(gallerys)}" />
+
+		<div id="galImgs">
+			<a style="cursor:pointer">◀</a>
+			<!-- 이미지가 없을 때 -->
+			<c:if test="${empty gallerys}">
+				<div><img src="assets/images/Tulips.jpg">
+				<p><c:out value="입력한 사진이 없습니다."/></p></div>
+			</c:if>
+			<!-- 이미지가 있을 때 3개씩 출력 -->
+			<c:forEach items="${gallerys}" var="gallery" varStatus="status" begin="${start}" end="${end}">
+	                <div><img src="${gallery.getPhoto_path()}" class="galImg">
+	                <p><c:out value="${gallery.getComment()}"/></p></div>  
+	        </c:forEach>
+            <a style="cursor:pointer">▶</a>
+		</div>
+	    
 		<table border="1" width="800">
 			<tr>
 				<th>번호</th>
@@ -80,7 +99,6 @@
 		<a href="FarmPageModify">페이지 수정하기</a><br/>
 		<a href="FarmPageWrite">사진 입력하기</a>
 	</div>
-  
 </div> 
    
 </body>

@@ -1,6 +1,7 @@
 package myFarm.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import myFarm.entity.Farm;
+import myFarm.entity.FileID;
+import myFarm.entity.FileUp;
 import myFarm.service.FarmService;
+import myFarm.service.FileService;
 
 /*
  * auction 관련 파일을 실행시키기 위한 컨트롤러
@@ -30,22 +34,38 @@ import myFarm.service.FarmService;
 public class MyFarmController {
 
 	@Autowired(required = true)
-	FarmService fs;
+	FarmService farmServ;
+	
+	@Autowired(required = true)
+	FileService fileServ;
+	
+	/**
+	 * name, BusinessNum는 세션 등으로 저장되어 있어야 한다 
+	 * */
+	private String name = "Lee";
+	private String BusinessNum = "123456";
 
 	private Farm myFarm;
+	private List<FileUp> myGallery;
 
 	// 농장 메인 화면
 	@RequestMapping("/FarmPageMain")
 	public String intro(Model model) {
 
 		System.out.println("농장 메인 컨트롤러 실행됨");
-
-		myFarm = fs.findByfarm("123456");
+		
+		// 농장 정보 가져오기
+		myFarm = farmServ.findByfarm(BusinessNum);
 		if (myFarm == null) {
-			myFarm = fs.init("Lee", "123456");
+			myFarm = farmServ.init(name, BusinessNum);
 		}
-
 		model.addAttribute("farm", myFarm);
+		
+		// 갤러리 정보 가져오기
+		myGallery = fileServ.findList(BusinessNum);
+		if(myGallery == null) System.out.println("아무것도 찾지 못했다.");
+		else System.out.println(myGallery);
+		model.addAttribute("gallerys", myGallery);
 
 		return "myFarm/FarmPageMain";
 	}
@@ -62,42 +82,24 @@ public class MyFarmController {
 
 	// 이미지와 코멘트 저장
 	@PostMapping("/insert")
-	public String insert(@RequestParam("filename") MultipartFile file, @RequestParam String content, HttpServletRequest request) throws Exception {
+	public String insert(@RequestParam("filename") MultipartFile file, FileUp fileUp, HttpServletRequest request) throws Exception {
 
 		System.out.println("================== file start ==================");
 		System.out.println("파일 이름: " + file.getName());
 		System.out.println("파일 실제 이름: " + file.getOriginalFilename());
 		System.out.println("파일 크기: " + file.getSize());
 		System.out.println("content type: " + file.getContentType());
-		System.out.println("코멘트: " + content);
+		System.out.println("코멘트: " + fileUp.getComment());
 		System.out.println("================== file   END ==================");
 
-		// Save mediaFile on system
-		/*
-		 * if (!file.getOriginalFilename().isEmpty()) { String path = uploadPath + "/" +
-		 * file.getOriginalFilename(); file.transferTo(new File(path, file.getName()));
-		 * fs.insert(path, content); }
-		 */
-
-		// 파일 이름
-	    String filename = file.getOriginalFilename();
-	    
-		// 파일 경로
-		String root_path = request.getSession().getServletContext().getRealPath("/");
-		String filePath = "assets\\FARM-IMAGES\\" + filename;
+		String root_path = request.getSession().getServletContext().getRealPath("/");	// 파일 경로
 		
-		// 전체 경로 출력
-		System.out.println(root_path + filePath);
+		FileID id = new FileID();
+		id.setBusinessNum(myFarm.getBusinessNum());
+		fileUp.setFileId(id);
 		
-		// 파일 저장
-		file.transferTo(new File(root_path + filePath));
+		fileServ.insert(file, root_path, fileUp);
 		
-		// 정보 갱신
-		myFarm = fs.findByfarm("123456");
-		myFarm.setPhoto(filePath);
-		myFarm.setComment(content);
-		myFarm = fs.insert(myFarm);
-
 		return "redirect:FarmPageMain";
 	}
 

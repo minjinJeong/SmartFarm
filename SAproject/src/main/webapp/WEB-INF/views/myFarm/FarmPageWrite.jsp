@@ -23,7 +23,7 @@
 				<label>사진</label>
 				<input type="file" name="filename" size=20> <br/> <br/>
 				<label>코멘트</label>
-				<input type="text" name="content" /> <br/> <br/>
+				<input type="text" name="comment" /> <br/> <br/>
 
 				<button type="submit">작성</button>
 				<center>

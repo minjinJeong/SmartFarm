@@ -8,6 +8,8 @@
 	
 		<class>account.entity.Account</class>
 		<class>myFarm.entity.Farm</class>
+		<class>myFarm.entity.FileUp</class>
+		<class>myFarm.entity.FileID</class>
         
 		<properties>
 		<property name="hibernate.diarect" value="org.hibernate.dialect.MySQL5Dialect" />
