@@ -5,10 +5,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import myFarm.entity.Farm;
+import myFarm.entity.FileUp;
 import myFarm.repository.FarmRepository;
 
 @Service
@@ -18,23 +20,27 @@ public class FarmService {
 	@Autowired
 	private FarmRepository fr;
 	
-	// »õ ³óÀå ÆäÀÌÁö ¸¸µé±â (¸· È¸¿ø°¡ÀÔÇÑ °æ¿ì)
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½)
 	public Farm init(String name, String num) {
 		return fr.save(new Farm(name, num));
 	}
 
-	// ³óÀå Á¤º¸ Ã£±â
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
 	public Farm findByfarm(String num) {
 		
 		Farm farm = fr.findBybusinessNum(num);
-		// System.out.println("farm È£Ãâ °á°ú::"+farm.getFarmName());
+		// System.out.println("farm È£ï¿½ï¿½ ï¿½ï¿½ï¿½::"+farm.getFarmName());
 		
 		return farm;
 	}
 	
-	// ÀÌ¹ÌÁö ÀúÀåÇÏ±â
+	// ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	public Farm insert(Farm farm) {
 		return fr.save(farm);
+	}
+	
+	public List<Farm> findAll() {
+		return fr.findAll();
 	}
 
 }

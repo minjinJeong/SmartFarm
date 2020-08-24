@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import myFarm.entity.Farm;
@@ -22,11 +23,11 @@ import myFarm.service.FarmService;
 import myFarm.service.FileService;
 
 /*
- * auction °ü·Ã ÆÄÀÏÀ» ½ÇÇà½ÃÅ°±â À§ÇÑ ÄÁÆ®·Ñ·¯
- * @Controller´Â ÄÁÆ®·Ñ·¯¶ó´Â ¶æÀÌ°í,
- * @RequestMapping("/jspÀÌ¸§")Àº ÇØ´çÇÏ´Â jspÀÌ¸§À¸·Î ¿äÃ»ÀÌ µé¾î¿À¸é ½ÇÇàÇÑ´Ù´Â ¶æÀÌ´Ù. ¸ÅÇÎ ¹®Á¦°¡ »ı±ä °Å¸é ¿©±â¼­ ¹ß»ı!!
- * ÀÌ‹š, return "Æú´õÀÌ¸§/jspÀÌ¸§" À¸·Î ¹İÈ¯ÇØÁà¾ß ÇÑ´Ù.
- * Á¦´ë·Î ÀÛµ¿ÇÏ´ÂÁö È®ÀÎÇÏ±â À§ÇØ System.out.println À¸·Î ÄÜ¼ÖÃ¢¿¡ Ç¥½Ã. ÀÌ ¶óÀÎÀº »èÁ¦ÇØµµ µÊ.
+ * auction ê´€ë ¨ íŒŒì¼ì„ ì‹¤í–‰ì‹œí‚¤ê¸° ìœ„í•œ ì»¨íŠ¸ë¡¤ëŸ¬
+ * @ControllerëŠ” ì»¨íŠ¸ë¡¤ëŸ¬ë¼ëŠ” ëœ»ì´ê³ ,
+ * @RequestMapping("/jspì´ë¦„")ì€ í•´ë‹¹í•˜ëŠ” jspì´ë¦„ìœ¼ë¡œ ìš”ì²­ì´ ë“¤ì–´ì˜¤ë©´ ì‹¤í–‰í•œë‹¤ëŠ” ëœ»ì´ë‹¤. ë§¤í•‘ ë¬¸ì œê°€ ìƒê¸´ ê±°ë©´ ì—¬ê¸°ì„œ ë°œìƒ!!
+ * ì´ë–„, return "í´ë”ì´ë¦„/jspì´ë¦„" ìœ¼ë¡œ ë°˜í™˜í•´ì¤˜ì•¼ í•œë‹¤.
+ * ì œëŒ€ë¡œ ì‘ë™í•˜ëŠ”ì§€ í™•ì¸í•˜ê¸° ìœ„í•´ System.out.println ìœ¼ë¡œ ì½˜ì†”ì°½ì— í‘œì‹œ. ì´ ë¼ì¸ì€ ì‚­ì œí•´ë„ ë¨.
  * 
  *  */
 
@@ -40,32 +41,72 @@ public class MyFarmController {
 	FileService fileServ;
 	
 	/**
-	 * name, BusinessNum´Â ¼¼¼Ç µîÀ¸·Î ÀúÀåµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù 
+	 * name, BusinessNumëŠ” ì„¸ì…˜ ë“±ìœ¼ë¡œ ì €ì¥ë˜ì–´ ìˆì–´ì•¼ í•œë‹¤ 
 	 * */
 	private String name = "Lee";
 	private String BusinessNum = "123456";
+	private int imgPage = 0;
+	private boolean imgPageFlag = false;
 
 	private Farm myFarm;
+	private List<Farm> Farms;
 	private List<FileUp> myGallery;
 
-	// ³óÀå ¸ŞÀÎ È­¸é
+	// ë†ì¥ ë©”ì¸ í™”ë©´
 	@RequestMapping("/FarmPageMain")
 	public String intro(Model model) {
 
-		System.out.println("³óÀå ¸ŞÀÎ ÄÁÆ®·Ñ·¯ ½ÇÇàµÊ");
+		System.out.println("ë†ì¥ ë©”ì¸ ì»¨íŠ¸ë¡¤ëŸ¬ ì‹¤í–‰ë¨\t" + imgPage);
 		
-		// ³óÀå Á¤º¸ °¡Á®¿À±â
+		// ë†ì¥ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		myFarm = farmServ.findByfarm(BusinessNum);
 		if (myFarm == null) {
 			myFarm = farmServ.init(name, BusinessNum);
 		}
+		
+		/*
+		//farmer sales rank(updateDB self one(myFarm))
+		Farms = farmServ.findAll();
+		int rank=1;
+		for(Farm fm : Farms) {
+			if(Integer.parseInt(fm.getSales()) > Integer.parseInt(myFarm.getSales())) {
+				rank = rank + 1;
+			}
+		}
+		myFarm.setRatings(Integer.toString(rank));
+		farmServ.insert(myFarm);
+		*/
+		
+		/*
+		//farmer sales rank(updateDB all)
+		Farms = farmServ.findAll();
+		int rank=1;
+		for(Farm fm : Farms) {
+			for(Farm fm2 : Farms) {
+				if(Integer.parseInt(fm2.getSales()) > Integer.parseInt(fm.getSales())) {
+					rank = rank + 1;
+				}
+			}
+			fm.setRatings(Integer.toString(rank));
+			farmServ.insert(fm);
+		}
+		//apply changed ratings at model.addAttribute
+		myFarm.getRatings();
+		*/
+		
+		
 		model.addAttribute("farm", myFarm);
 		
-		// °¶·¯¸® Á¤º¸ °¡Á®¿À±â
+		// ê°¤ëŸ¬ë¦¬ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 		myGallery = fileServ.findList(BusinessNum);
-		if(myGallery == null) System.out.println("¾Æ¹«°Íµµ Ã£Áö ¸øÇß´Ù.");
+		if(myGallery == null) System.out.println("ì•„ë¬´ê²ƒë„ ì°¾ì§€ ëª»í–ˆë‹¤.");
 		else System.out.println(myGallery);
 		model.addAttribute("gallerys", myGallery);
+		
+		//FarmPage img paging Initialization
+		if(imgPageFlag == false) {imgPage = 0;}
+		model.addAttribute("imagePage", imgPage);
+		imgPageFlag = false;
 
 		return "myFarm/FarmPageMain";
 	}
@@ -73,26 +114,25 @@ public class MyFarmController {
 	@RequestMapping("/FarmPageWrite")
 	public String write(Model model) {
 
-		System.out.println("³óÀå ±Û¾²±â ÄÁÆ®·Ñ·¯ ½ÇÇàµÊ");
+		System.out.println("ë†ì¥ ê¸€ì“°ê¸° ì»¨íŠ¸ë¡¤ëŸ¬ ì‹¤í–‰ë¨");
 
 		model.addAttribute("farm", myFarm);
 
 		return "myFarm/FarmPageWrite";
 	}
 
-	// ÀÌ¹ÌÁö¿Í ÄÚ¸àÆ® ÀúÀå
+	// ì´ë¯¸ì§€ì™€ ì½”ë©˜íŠ¸ ì €ì¥
 	@PostMapping("/insert")
 	public String insert(@RequestParam("filename") MultipartFile file, FileUp fileUp, HttpServletRequest request) throws Exception {
 
 		System.out.println("================== file start ==================");
-		System.out.println("ÆÄÀÏ ÀÌ¸§: " + file.getName());
-		System.out.println("ÆÄÀÏ ½ÇÁ¦ ÀÌ¸§: " + file.getOriginalFilename());
-		System.out.println("ÆÄÀÏ Å©±â: " + file.getSize());
+		System.out.println("íŒŒì¼ ì´ë¦„: " + file.getName());
+		System.out.println("íŒŒì¼ ì‹¤ì œ ì´ë¦„: " + file.getOriginalFilename());
+		System.out.println("íŒŒì¼ í¬ê¸°: " + file.getSize());
 		System.out.println("content type: " + file.getContentType());
-		System.out.println("ÄÚ¸àÆ®: " + fileUp.getComment());
+		System.out.println("ì½”ë©˜íŠ¸: " + fileUp.getComment());
 		System.out.println("================== file   END ==================");
-
-		String root_path = request.getSession().getServletContext().getRealPath("/");	// ÆÄÀÏ °æ·Î
+		String root_path = request.getSession().getServletContext().getRealPath("/");	// íŒŒì¼ ê²½ë¡œ
 		
 		FileID id = new FileID();
 		id.setBusinessNum(myFarm.getBusinessNum());
@@ -102,16 +142,46 @@ public class MyFarmController {
 		
 		return "redirect:FarmPageMain";
 	}
+	
+	//FarmPage img paging â—€(prev) click
+	@RequestMapping("imgPagePrev")
+	 public String imgPagePrev( Model model) {
+		
+		myGallery = fileServ.findList(BusinessNum);
+		if(imgPage-1 > -1) {
+			imgPage = imgPage-1;
+		}
+		imgPageFlag = true;
+		// model.addAttribute("imagePage", imgPage);
+
+		return "redirect:FarmPageMain";
+	 }
+	
+	//FarmPage img paging â–¶(next) click
+	@RequestMapping("imgPageNext")
+	 public String imgPageNext( Model model) {
+		
+		System.out.println("test");
+		
+		myGallery = fileServ.findList(BusinessNum);
+		if((imgPage+3) < myGallery.size()) {
+			imgPage = imgPage+1;
+		}
+		imgPageFlag = true;
+		// model.addAttribute("imagePage", imgPage);
+
+		return "redirect:FarmPageMain";
+	 }
 
 	@RequestMapping("/FarmPageModify")
 	public String modify(Model model) {
-		System.out.println("³óÀå ¼öÁ¤ ÄÁÆ®·Ñ·¯ ½ÇÇàµÊ");
+		System.out.println("ë†ì¥ ìˆ˜ì • ì»¨íŠ¸ë¡¤ëŸ¬ ì‹¤í–‰ë¨");
 		return "myFarm/FarmPageModify";
 	}
 
 	@RequestMapping("/FarmPageReview")
 	public String review(Model model) {
-		System.out.println("³óÀå ¸®ºä ÄÁÆ®·Ñ·¯ ½ÇÇàµÊ");
+		System.out.println("ë†ì¥ ë¦¬ë·° ì»¨íŠ¸ë¡¤ëŸ¬ ì‹¤í–‰ë¨");
 		return "myFarm/FarmPageReview";
 	}
 }

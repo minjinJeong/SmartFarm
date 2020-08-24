@@ -6,9 +6,12 @@
 <head>
 <!-- ?after => 바뀐 스타일 시트 적용 안돼서 추가 -->
 <link href="assets/css/FarmPageCss.css?after" rel="stylesheet" type="text/css">
-<meta charset="EUC-KR">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 <title>농부 페이지</title>
+
 </head>
 <body>
 
@@ -25,18 +28,21 @@
 		<c:set var="len" value="${fn:length(gallerys)}" />
 
 		<div id="galImgs">
-			<a style="cursor:pointer">◀</a>
+			<a style="cursor:pointer" href="imgPagePrev" >◀</a>
 			<!-- 이미지가 없을 때 -->
 			<c:if test="${empty gallerys}">
 				<div><img src="assets/images/Tulips.jpg">
 				<p><c:out value="입력한 사진이 없습니다."/></p></div>
 			</c:if>
 			<!-- 이미지가 있을 때 3개씩 출력 -->
-			<c:forEach items="${gallerys}" var="gallery" varStatus="status" begin="${start}" end="${end}">
-	                <div><img src="${gallery.getPhoto_path()}" class="galImg">
-	                <p><c:out value="${gallery.getComment()}"/></p></div>  
+			<c:forEach items="${gallerys}" var="gallery" varStatus="status" begin="${start+imagePage}" end="${end+imagePage}">
+	                <div><img src="${gallery.getPhoto_path()}" id="galImg" class="galImg">
+	                <p><c:out value="${gallery.getComment()}"/></p></div>
 	        </c:forEach>
-            <a style="cursor:pointer">▶</a>
+	        
+			<c:set var="start" value="1" />
+			<c:set var="end" value="3" />
+            <a style="cursor:pointer" href="imgPageNext">▶</a>
 		</div>
 	    
 		<table border="1" width="800">

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import myFarm.entity.Farm;
+import myFarm.entity.FileUp;
 
 @Repository
 public interface FarmRepository extends JpaRepository<Farm, String> {
@@ -19,5 +20,7 @@ public interface FarmRepository extends JpaRepository<Farm, String> {
 	
 	// businessNum으로 DB 검색 :: findBy필드이름();
 	public Farm findBybusinessNum(String num);
+	
+	public List<Farm> findAll();
 
 }
